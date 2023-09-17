@@ -164,14 +164,14 @@ dns:
     dns.twnic.tw: 101.101.101.101
 
   proxy-server-nameserver:
-     - https://dns.cooluc.com/dns-query
-     - https://doh.apad.pro/dns-query
-     - https://1.15.50.48/verse
+     - https://dns.cooluc.com/dns-query#h3=true
+     - https://doh.apad.pro/dns-query#h3=true
+     - https://1.15.50.48/verse#h3=true
      
   nameserver:
-    - https://dns.cooluc.com/dns-query
-    - https://doh.apad.pro/dns-query
-    - https://1.15.50.48/verse
+    - https://dns.cooluc.com/dns-query#h3=true
+    - https://doh.apad.pro/dns-query#h3=true
+    - https://1.15.50.48/verse#h3=true
      #- 223.5.5.5 # 阿里DNS
      #- 180.76.76.76 # 百度DNS
      #- 119.29.29.29 # 腾讯DNS
@@ -183,7 +183,7 @@ dns:
 
   #fallback:
     #- https://dns.google/dns-query
-    #- https://1.1.1.1/dns-query
+    #- https://1.1.1.1/dns-query#h3=true
     #- https://public.dns.iij.jp/dns-query
 
      
