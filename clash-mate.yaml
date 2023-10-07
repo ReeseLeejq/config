@@ -175,8 +175,6 @@ dns:
      #- 223.5.5.5 # 阿里DNS
      #- 180.76.76.76 # 百度DNS
      #- 119.29.29.29 # 腾讯DNS
-     #- 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
-     #- 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
      #- 114.114.114.114 # 114DNS
      #- https://dns.alidns.com/dns-query # 阿里 DoH DNS
      #- https://doh.360.cn/dns-query # 360 DoH DNS
@@ -201,7 +199,7 @@ dns:
   #
   # 采取以上逻辑进行域名解析是为了对抗 DNS 投毒攻击。
   fallback-filter:
-    geoip: true
+    geoip: false
     ipcidr:
       - 0.0.0.0/8
       - 10.0.0.0/8
@@ -242,7 +240,7 @@ tun:
 # System proxy will ignore these domains(or ipnet)
 # 系统代理跳过列表-备份的，不起作用，
 # 使用时可以将cfw-bypass-bak与cfw-bypass内容互换
-cfw-bypass-bak:
+# cfw-bypass-bak:
 # 原有字段不用删除
   - qq.com
   - 'music.163.com' # 网易云域名1
@@ -289,10 +287,10 @@ cfw-bypass:
   - "*.pan666.net"
   - "*.gitcafe.ink"
   - "*.m-team.cc"
+  - "*.m-team.io"
   - "*.hdcity.leniter.org"
   - "*.colashare.com"
   - "*.cn.msi.com"
-  - "*.vvv.glass"
   - "*.zaobao.com"
   - "*.infinitynewtab.com"
   - "*.deepl.com"
