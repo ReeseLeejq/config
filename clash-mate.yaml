@@ -71,100 +71,23 @@ dns:
     - 223.6.6.6
     - 182.254.116.116
     - 182.254.118.118
-  enhanced-mode: redir-host # 或 redir-host
+  enhanced-mode: fake-ip # 或 redir-host
   fake-ip-range: 198.18.0.1/16 # Fake IP 地址池 (CIDR 形式)
   # use-hosts: true # 查询 hosts 并返回 IP 记录
 
 
   # 在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
-    # === LAN ===
-    - '*.example'
-    - '*.home.arpa'
-    - '*.invalid'
-    - '*.lan'
-    - '*.local'
-    - '*.localdomain'
-    - '*.localhost'
-    - '*.test'
-    # === Apple Software Update Service ===
-    - 'mesu.apple.com'
-    - 'swscan.apple.com'
-    # === ASUS Router ===
-    - '*.router.asus.com'
-    # === Google ===
-    - 'lens.l.google.com'
-    - 'stun.l.google.com'
-    ## Golang
-    - 'proxy.golang.org'
-    # === Linksys Wireless Router ===
-    - '*.linksys.com'
-    - '*.linksyssmartwifi.com'
-    # === Windows 10 Connnect Detection ===
-    - '*.ipv6.microsoft.com'
-    - '*.msftconnecttest.com'
-    - '*.msftncsi.com'
-    - 'msftconnecttest.com'
-    - 'msftncsi.com'
-    # === NTP Service ===
-    - 'ntp.*.com'
-    - 'ntp1.*.com'
-    - 'ntp2.*.com'
-    - 'ntp3.*.com'
-    - 'ntp4.*.com'
-    - 'ntp5.*.com'
-    - 'ntp6.*.com'
-    - 'ntp7.*.com'
-    - 'time.*.apple.com'
-    - 'time.*.com'
-    - 'time.*.gov'
-    - 'time1.*.com'
-    - 'time2.*.com'
-    - 'time3.*.com'
-    - 'time4.*.com'
-    - 'time5.*.com'
-    - 'time6.*.com'
-    - 'time7.*.com'
-    - 'time.*.edu.cn'
-    - '*.time.edu.cn'
-    - '*.ntp.org.cn'
-    - '+.pool.ntp.org'
-    - 'time1.cloud.tencent.com'
-    # === Game Service ===
-    ## Microsoft Xbox
-    - 'speedtest.cros.wr.pvp.net'
-    - '*.*.xboxlive.com'
-    - 'xbox.*.*.microsoft.com'
-    - 'xbox.*.microsoft.com'
-    - 'xnotify.xboxlive.com'
-    ## Nintendo Switch
-    - '*.*.*.srv.nintendo.net'
-    - '+.srv.nintendo.net'
-    ## Sony PlayStation
-    - '*.*.stun.playstation.net'
-    - '+.stun.playstation.net'
-    ## STUN Server 
-    - '+.stun.*.*.*.*.*' 
-    - '+.stun.*.*.*.*'
-    - '+.stun.*.*.*'
-    - '+.stun.*.*'
-    - 'stun.*.*.*'
-    - 'stun.*.*'
-    # === Other ===
-    ## QQ Quick Login
-    - 'localhost.ptlogin2.qq.com'
-    - 'localhost.sec.qq.com'
-    ## ipv6
-    - '+.ipw.cn'
+    # === ALL ===
+    - '+.*'
 
   nameserver-policy:
     dns.twnic.tw: 101.101.101.101
-  # 'geosite：cn'： https://223.5.5.5/dns-query
 
   proxy-server-nameserver:
-    - https://223.6.6.6/dns-query
-    - https://120.53.53.53/dns-query
-    - https://1.15.50.48/verse
+     - https://dns.cooluc.com/dns-query
+     - https://doh.apad.pro/dns-query
+     - https://1.15.50.48/verse
      
   nameserver:
     - https://dns.cooluc.com/dns-query
@@ -173,6 +96,8 @@ dns:
      #- 223.5.5.5 # 阿里DNS
      #- 180.76.76.76 # 百度DNS
      #- 119.29.29.29 # 腾讯DNS
+     #- 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
+     #- 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
      #- 114.114.114.114 # 114DNS
      #- https://dns.alidns.com/dns-query # 阿里 DoH DNS
      #- https://doh.360.cn/dns-query # 360 DoH DNS
@@ -182,6 +107,7 @@ dns:
     #- https://1.1.1.1/dns-query
     #- https://public.dns.iij.jp/dns-query
 
+     #   - https://dns.google/dns-query
      
   # 当 fallback 参数被配置时, DNS 请求将同时发送至上方 nameserver 列表和下方 fallback 列表中配置的所有 DNS 服务器.
   # 当解析得到的 IP 地址的地理位置不是 CN 时，clash 将会选用 fallback 中 DNS 服务器的解析结果。
@@ -227,7 +153,7 @@ dns:
       - msftncsi.com
 
 tun:
-  enable: false #如果需要启用 TUN 模式，请设置为 true
+  enable: true #如果需要启用 TUN 模式，请设置为 true
   stack: system # 或 gvisor
   auto-route: true
   auto-detect-interface: true
@@ -238,7 +164,7 @@ tun:
 # System proxy will ignore these domains(or ipnet)
 # 系统代理跳过列表-备份的，不起作用，
 # 使用时可以将cfw-bypass-bak与cfw-bypass内容互换
-# cfw-bypass-bak:
+cfw-bypass-bak:
 # 原有字段不用删除
   - qq.com
   - 'music.163.com' # 网易云域名1
@@ -285,10 +211,10 @@ cfw-bypass:
   - "*.pan666.net"
   - "*.gitcafe.ink"
   - "*.m-team.cc"
-  - "*.m-team.io"
   - "*.hdcity.leniter.org"
   - "*.colashare.com"
   - "*.cn.msi.com"
+  - "*.vvv.glass"
   - "*.zaobao.com"
   - "*.infinitynewtab.com"
   - "*.deepl.com"
