@@ -6,6 +6,7 @@
 ||dns.weixin.qq.com.cn^
 ||dns.weixin.qq.com^
 ||dns.ximalaya.com^
+||doh.iqiyi.com^
 ||hdns.ksyun.com^
 ||httpdns.alicdn.com^
 ||httpdns.baidu.com^
