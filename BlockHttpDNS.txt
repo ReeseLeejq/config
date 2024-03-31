@@ -8,6 +8,7 @@
 ||dns.ximalaya.com^
 ||doh.iqiyi.com^
 ||hdns.ksyun.com^
+||hdns.xf-yun.com^
 ||httpdns.alicdn.com^
 ||httpdns.baidu.com^
 ||httpdns.baidubce.com^
