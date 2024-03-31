@@ -22,7 +22,7 @@ allow-lan: true
 # #192.168.122.11: 绑定单个IPv4地址
 # #"[aaaa::a8aa:ff:fe09:57d8]": 绑定单个IPv6地址
 bind-address: "*"
-ipv6: false
+ipv6: true
 
 # 规则模式：rule（规则） / global（全局代理）/ direct（全局直连）/ script (脚本)
 mode: rule
@@ -82,7 +82,7 @@ dns:
     - '+.*'
 
   nameserver-policy:
-    dns.twnic.tw: 101.101.101.101
+    'geosite:cn': https://dns.alidns.com/dns-query
 
   proxy-server-nameserver:
      - https://dns.cooluc.com/dns-query
@@ -207,14 +207,10 @@ cfw-bypass:
   - "*.423down.com"
   - "*.ghxi.com"
   - "*.upyunso.com"
-  - "*.yunpan1.cc"
+  - "*.yunpan1.xyz"
   - "*.pan666.net"
-  - "*.gitcafe.ink"
   - "*.m-team.cc"
   - "*.hdcity.leniter.org"
-  - "*.colashare.com"
-  - "*.cn.msi.com"
-  - "*.vvv.glass"
   - "*.zaobao.com"
   - "*.infinitynewtab.com"
   - "*.deepl.com"
