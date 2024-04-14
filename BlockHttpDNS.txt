@@ -32,3 +32,9 @@
 ||loggw.alipaydns.com^
 ||music.httpdns.c.163.com^
 ||passport.dns.iqiyi.com^
+!iqiyi
+||so.dns.iqiyi.com^
+||msg.video.dns.iqiyi.com^
+||ifacelog.dns.iqiyi.com^
+||bj.vip.waf.dns.iqiyi.com^
+||data.video.dns.iqiyi.com^
