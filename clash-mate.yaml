@@ -81,7 +81,7 @@ dns:
     # === ALL ===
     - '+.*'
 
-  nameserver-policy:
+  #nameserver-policy:
   #  'geosite:cn': https://dns.alidns.com/dns-query
 
   proxy-server-nameserver:
