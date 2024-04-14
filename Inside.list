@@ -1,10 +1,10 @@
 #CN-DNS
-DOMAIN-SUFFIX,dns.alidns.com
+DOMAIN,dns.alidns.com
 DOMAIN-SUFFIX,dns.pub
 DOMAIN-SUFFIX,doh.pub
 DOMAIN-SUFFIX,dot.pub
-DOMAIN-SUFFIX,doh.apad.pro
-DOMAIN-SUFFIX,dns.cooluc.com
+DOMAIN,doh.apad.pro
+DOMAIN,dns.cooluc.com
 #pt
 DOMAIN-KEYWORD,m-team
 DOMAIN-SUFFIX,hdcity.leniter.org
@@ -18,6 +18,8 @@ DOMAIN-SUFFIX,ssdax.com
 DOMAIN-SUFFIX,apphot.cc
 DOMAIN-SUFFIX,423down.com
 DOMAIN-SUFFIX,ghxi.com
+DOMAIN-SUFFIX,mpyit.com
+DOMAIN-SUFFIX,yxssp.com
 #资源
 DOMAIN-SUFFIX,upyunso.com
 DOMAIN-SUFFIX,pan666.net
@@ -25,6 +27,7 @@ DOMAIN-SUFFIX,yunpan1.xyz
 DOMAIN-SUFFIX,jinglei.eu.org
 DOMAIN-SUFFIX,haimian.eu.org
 DOMAIN-SUFFIX,daiguaji.com
+DOMAIN-SUFFIX,leijing.xyz
 #浏览器插件
 DOMAIN-SUFFIX,deepl.com
 DOMAIN-SUFFIX,infinitynewtab.com
