@@ -8,6 +8,7 @@
 ||dns.ximalaya.com^
 ||doh.iqiyi.com^
 ||hdns.ksyun.com^
+||hdns.qnqcdn.net^
 ||hdns.xf-yun.com^
 ||httpdns.alicdn.com^
 ||httpdns.baidu.com^
@@ -31,8 +32,8 @@
 ||lofter.httpdns.c.163.com^
 ||loggw.alipaydns.com^
 ||music.httpdns.c.163.com^
-||passport.dns.iqiyi.com^
 !iqiyi
+||passport.dns.iqiyi.com^
 ||so.dns.iqiyi.com^
 ||msg.video.dns.iqiyi.com^
 ||ifacelog.dns.iqiyi.com^
