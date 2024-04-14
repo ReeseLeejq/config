@@ -82,7 +82,7 @@ dns:
     - '+.*'
 
   nameserver-policy:
-    'geosite:cn': https://dns.alidns.com/dns-query
+  #  'geosite:cn': https://dns.alidns.com/dns-query
 
   proxy-server-nameserver:
      - https://dns.cooluc.com/dns-query
