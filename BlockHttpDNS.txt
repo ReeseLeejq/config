@@ -32,6 +32,7 @@
 ||lofter.httpdns.c.163.com^
 ||loggw.alipaydns.com^
 ||music.httpdns.c.163.com^
+||udns.weixin.qq.com^
 !iqiyi
 ||passport.dns.iqiyi.com^
 ||so.dns.iqiyi.com^
