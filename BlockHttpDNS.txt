@@ -16,6 +16,7 @@
 ||httpdns.bilivideo.com^
 ||httpdns.c.cdnhwc2.com^
 ||httpdns.kg.qq.com^
+||httpdns.kwd.inkuai.com^
 ||httpdns.meituan.com^
 ||httpdns.music.163.com^
 ||httpdns.n.netease.com^
@@ -27,13 +28,13 @@
 ||httpdns-sc.aliyuncs.com^
 ||httpdns-sdk.n.netease.com
 ||httpsdns.baidu.com^
-||iface2.dns.iqiyi.com^
 ||kuaishou.httpdns.pro^
 ||lofter.httpdns.c.163.com^
 ||loggw.alipaydns.com^
 ||music.httpdns.c.163.com^
 ||udns.weixin.qq.com^
 !iqiyi
+||iface2.dns.iqiyi.com^
 ||passport.dns.iqiyi.com^
 ||so.dns.iqiyi.com^
 ||msg.video.dns.iqiyi.com^
