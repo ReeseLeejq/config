@@ -8,6 +8,7 @@
 ||dns.ximalaya.com^
 ||doh.iqiyi.com^
 ||hdns.ksyun.com^
+||hdns.openspeech.cn^
 ||hdns.qnqcdn.net^
 ||hdns.xf-yun.com^
 ||httpdns.alicdn.com^
