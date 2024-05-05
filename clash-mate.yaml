@@ -68,9 +68,10 @@ dns:
   # 以下填写的 DNS 服务器将会被用来解析 DNS 服务的域名
   # 仅填写 DNS 服务器的 IP 地址
   default-nameserver:
-    - 223.6.6.6
-    - 182.254.116.116
-    - 182.254.118.118
+    - https://223.5.5.5:443/dns-query
+    - tls://120.53.53.53:853
+   # - 182.254.116.116
+   # - 182.254.118.118
   enhanced-mode: redir-host # 或 fake-ip
   fake-ip-range: 198.18.0.1/16 # Fake IP 地址池 (CIDR 形式)
   # use-hosts: true # 查询 hosts 并返回 IP 记录
@@ -107,7 +108,6 @@ dns:
     #- https://1.1.1.1/dns-query
     #- https://public.dns.iij.jp/dns-query
 
-     #   - https://dns.google/dns-query
      
   # 当 fallback 参数被配置时, DNS 请求将同时发送至上方 nameserver 列表和下方 fallback 列表中配置的所有 DNS 服务器.
   # 当解析得到的 IP 地址的地理位置不是 CN 时，clash 将会选用 fallback 中 DNS 服务器的解析结果。
@@ -153,9 +153,10 @@ dns:
       - msftncsi.com
 
 tun:
-  enable: false #如果需要启用 TUN 模式，请设置为 true
-  stack: system # 或 gvisor
+  enable: true  #如果需要启用 TUN 模式，请设置为 true
+  stack: mixed # system 或 gvisor
   auto-route: true
   auto-detect-interface: true
   dns-hijack:
+    - any:53
     - tcp://any:53
