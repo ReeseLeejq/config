@@ -68,7 +68,7 @@ hosts:
 # DNS 服务器配置(可选；若不配置，程序内置的 DNS 服务会被关闭)
 dns:
   enable: true
-  listen: 0.0.0.0:7853
+  listen: 0.0.0.0:53
   ipv6: false # 当此选项为 false 时, AAAA 请求将返回空
 
   # 以下填写的 DNS 服务器将会被用来解析 DNS 服务的域名
