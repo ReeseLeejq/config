@@ -14,6 +14,17 @@ socks-port: 7891
 # Linux 和 macOS 的 redir 代理端口 (如需使用此功能，请取消注释)
 # redir-port: 7892
 
+#Meta设置
+unified-delay: true
+geodata-mode: true
+geodata-loader: standard
+#  find-process-mode has 3 values:always, strict, off
+#  - always, 开启，强制匹配所有进程
+#  - strict, 默认，由 mihomo 判断是否开启
+#  - off, 不匹配进程，推荐在路由器上使用此模式
+find-process-mode: off
+global-client-fingerprint: chrome
+
 # 允许局域网的连接（可用来共享代理）
 allow-lan: true
 
@@ -23,12 +34,6 @@ allow-lan: true
 # #"[aaaa::a8aa:ff:fe09:57d8]": 绑定单个IPv6地址
 bind-address: "*"
 ipv6: true
-
-#  find-process-mode has 3 values:always, strict, off
-#  - always, 开启，强制匹配所有进程
-#  - strict, 默认，由 mihomo 判断是否开启
-#  - off, 不匹配进程，推荐在路由器上使用此模式
-find-process-mode: off
 
 # 规则模式：rule（规则） / global（全局代理）/ direct（全局直连）/ script (脚本)
 mode: rule
@@ -68,7 +73,7 @@ hosts:
 # DNS 服务器配置(可选；若不配置，程序内置的 DNS 服务会被关闭)
 dns:
   enable: true
-  listen: 0.0.0.0:53
+  listen: 0.0.0.0:1053
   ipv6: false # 当此选项为 false 时, AAAA 请求将返回空
 
   # 以下填写的 DNS 服务器将会被用来解析 DNS 服务的域名
@@ -86,7 +91,8 @@ dns:
   # 在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
     # === ALL ===
-    - '+.*'
+    - '*'
+    - +.lan
 
   #nameserver-policy:
   #  'geosite:cn': https://dns.alidns.com/dns-query
@@ -157,4 +163,3 @@ tun:
   auto-detect-interface: true
   dns-hijack:
     - any:53
-    - tcp://any:53
