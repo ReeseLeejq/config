@@ -36,7 +36,7 @@
 ||udns.weixin.qq.com^
 !iqiyi
 ||iface2.dns.iqiyi.com^
-||passport.dns.iqiyi.com^
+@@||passport.dns.iqiyi.com^
 ||so.dns.iqiyi.com^
 ||msg.video.dns.iqiyi.com^
 ||ifacelog.dns.iqiyi.com^
