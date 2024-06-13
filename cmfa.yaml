@@ -99,8 +99,7 @@ dns:
   fake-ip-filter:
     # === ALL ===
     - '*'
-    - +.lan
-    - '+.local'
+    - '+.*'
 
   proxy-server-nameserver:
      - https://dns.cooluc.com/dns-query
