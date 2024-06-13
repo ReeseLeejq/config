@@ -92,7 +92,7 @@ dns:
   fake-ip-filter:
     # === ALL ===
     - '*'
-    - +.lan
+    - '+.*'
 
   #nameserver-policy:
   #  'geosite:cn': https://dns.alidns.com/dns-query
