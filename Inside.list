@@ -5,6 +5,8 @@ DOMAIN-SUFFIX,doh.pub
 DOMAIN-SUFFIX,dot.pub
 DOMAIN,doh.apad.pro
 DOMAIN,dns.cooluc.com
+DOMAIN,hk.kahkee.xns.one
+DOMAIN,hk.beta.xns.one
 #pt
 DOMAIN-KEYWORD,m-team
 DOMAIN-SUFFIX,hdcity.leniter.org
