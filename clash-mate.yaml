@@ -98,12 +98,11 @@ dns:
   #  'geosite:cn': https://dns.alidns.com/dns-query
 
   proxy-server-nameserver:
-     - https://dns.cooluc.com/dns-query
      - https://doh.apad.pro/dns-query
      - https://1.15.50.48/verse
      
   nameserver:
-    - https://dns.cooluc.com/dns-query
+    #- https://dns.cooluc.com/dns-query
     - https://doh.apad.pro/dns-query
     - https://1.15.50.48/verse
 
