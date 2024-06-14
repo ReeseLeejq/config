@@ -102,7 +102,6 @@ dns:
     - '+.*'
 
   proxy-server-nameserver:
-     - https://dns.cooluc.com/dns-query
      - https://doh.apad.pro/dns-query
      - https://1.15.50.48/verse
 
@@ -117,7 +116,7 @@ dns:
       - "https://8.8.4.4/dns-query#h3=true"
 
   nameserver:
-    - https://dns.cooluc.com/dns-query
+    #- https://dns.cooluc.com/dns-query
     - https://doh.apad.pro/dns-query
     - https://1.15.50.48/verse
 
@@ -133,6 +132,8 @@ tun:
   auto-detect-interface: true
   dns-hijack:
     - any:53
+rules:
+  - AND,((NETWORK,UDP),(GEOSITE,geolocation-!cn),(DST-PORT,443)),REJECT
 
 # 嗅探域名 可选配置
 sniffer:
