@@ -112,6 +112,30 @@ dns:
     #- https://public.dns.iij.jp/dns-query
 
 rule-providers:
+  Telegram:
+    type: http
+    behavior: classical
+    path: "./rule_provider/Telegram.yaml"
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram_No_Resolve.yaml
+    interval: 259200
+  rule-provider:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule-provider.yaml"
+    url: https://gcore.jsdelivr.net/gh/lwd-temp/anti-ip-attribution@main/generated/rule-provider.yaml
+    interval: 604800
+  BiliBili:
+    type: http
+    behavior: classical
+    path: "./rule_provider/private.yaml"
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BiliBili/BiliBili_No_Resolve.yaml
+    interval: 604800
+  GlobalMedia:
+    type: http
+    behavior: classical
+    path: "./rule_provider/GlobalMedia.yaml"
+    url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalMedia/GlobalMedia_Classical_No_Resolve.yaml
+    interval: 604800
   private:
     type: http
     behavior: domain
@@ -160,12 +184,6 @@ rule-providers:
     path: "./rule_provider/geolocation-!cn.yaml"
     url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-!cn-all.yaml
     interval: 259200
-  Telegram:
-    type: http
-    behavior: classical
-    path: "./rule_provider/Telegram.yaml"
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram.yaml
-    interval: 86400
 
 tun:
   enable: true  #如果需要启用 TUN 模式，请设置为 true
