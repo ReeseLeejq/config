@@ -111,6 +111,56 @@ dns:
     #- https://1.1.1.1/dns-query
     #- https://public.dns.iij.jp/dns-query
 
+rule-providers:
+  private:
+    type: http
+    behavior: domain
+    path: "./rule_provider/private.yaml"
+    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/private.yaml
+    interval: 604800
+  games-cn:
+    type: http
+    behavior: domain
+    path: "./rule_provider/games-cn.yaml"
+    url: https://raw.githubusercontent.com/DustinWin/ruleset_geodata/clash-ruleset/games-cn.yaml
+    interval: 604800
+  google-cn:
+    type: http
+    behavior: domain
+    path: "./rule_provider/google-cn.yaml"
+    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/google-cn.yaml
+    interval: 604800
+  microsoft-cn:
+    type: http
+    behavior: domain
+    path: "./rule_provider/microsoft-cn.yaml"
+    url: https://raw.githubusercontent.com/DustinWin/ruleset_geodata/clash-ruleset/microsoft-cn.yaml
+    interval: 604800
+  geolocation-cn@!cn:
+    type: http
+    behavior: domain
+    path: "./rule_provider/geolocation-cn@!cn.yaml"
+    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-cn%40!cn.yaml
+    interval: 259200
+  geolocation-!cn@cn:
+    type: http
+    behavior: domain
+    path: "./rule_provider/geolocation-!cn@cn.yaml"
+    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-!cn%40cn.yaml
+    interval: 259200
+  geolocation-!cn:
+    type: http
+    behavior: domain
+    path: "./rule_provider/geolocation-!cn.yaml"
+    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-!cn-all.yaml
+    interval: 259200
+  Telegram:
+    type: http
+    behavior: classical
+    path: "./rule_provider/Telegram.yaml"
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram.yaml
+    interval: 86400
+
 tun:
   enable: true  #如果需要启用 TUN 模式，请设置为 true
   stack: mixed # system 或 gvisor
