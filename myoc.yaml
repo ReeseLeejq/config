@@ -115,7 +115,7 @@ rule-providers:
   Telegram:
     type: http
     behavior: classical
-    path: "./rule_provider/Telegram.yaml"
+    path: "./rule_provider/Telegram_No_Resolve.yaml"
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram_No_Resolve.yaml
     interval: 259200
   rule-provider:
@@ -127,13 +127,13 @@ rule-providers:
   BiliBili:
     type: http
     behavior: classical
-    path: "./rule_provider/private.yaml"
+    path: "./rule_provider/BiliBili_No_Resolve.yaml"
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BiliBili/BiliBili_No_Resolve.yaml
     interval: 604800
   GlobalMedia:
     type: http
     behavior: classical
-    path: "./rule_provider/GlobalMedia.yaml"
+    path: "./rule_provider/GlobalMedia_Classical_No_Resolve.yaml"
     url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalMedia/GlobalMedia_Classical_No_Resolve.yaml
     interval: 604800
   private:
