@@ -73,6 +73,7 @@ hosts:
 # DNS 服务器配置(可选；若不配置，程序内置的 DNS 服务会被关闭)
 dns:
   enable: true
+  prefer-h3: true
   listen: 0.0.0.0:1053
   ipv6: false # 当此选项为 false 时, AAAA 请求将返回空
 
@@ -84,14 +85,13 @@ dns:
    # - 182.254.116.116
    # - 182.254.118.118
 
-  enhanced-mode: redir-host # 或 fake-ip
+  enhanced-mode: fake-ip # 或 redir-host
   fake-ip-range: 198.18.0.1/16 # Fake IP 地址池 (CIDR 形式)
   # use-hosts: true # 查询 hosts 并返回 IP 记录
 
   # 在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
     # === ALL ===
-    - '*'
     - '+.*'
 
   #nameserver-policy:
@@ -166,30 +166,36 @@ rule-providers:
     path: "./rule_provider/Microsoft_No_Resolve.yaml"
     url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft_No_Resolve.yaml
     interval: 604800
-  geolocation-cn@!cn:
+  proxy:
     type: http
-    behavior: domain
-    path: "./rule_provider/geolocation-cn@!cn.yaml"
-    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-cn%40!cn.yaml
-    interval: 259200
-  geolocation-cn:
-    type: http
-    behavior: domain
-    path: ./rule_provider/geolocation-cn.yaml
-    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-cn.yaml
-    interval: 259200
-  geolocation-!cn@cn:
-    type: http
-    behavior: domain
-    path: "./rule_provider/geolocation-!cn@cn.yaml"
-    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-!cn%40cn.yaml
-    interval: 259200
-  geolocation-!cn:
-    type: http
-    behavior: domain
-    path: "./rule_provider/geolocation-!cn.yaml"
-    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-!cn-all.yaml
-    interval: 259200
+    behavior: classical
+    path: "./rule_provider/proxyrule.yaml"
+    url: https://raw.githubusercontent.com/DustinWin/ruleset_geodata/clash-ruleset/proxy.yaml
+    interval: 259200    
+#  geolocation-cn@!cn:
+#    type: http
+#    behavior: domain
+#    path: "./rule_provider/geolocation-cn@!cn.yaml"
+#    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-cn%40!cn.yaml
+#    interval: 259200
+#  geolocation-cn:
+#    type: http
+#    behavior: domain
+#    path: ./rule_provider/geolocation-cn.yaml
+#    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-cn.yaml
+#    interval: 259200
+#  geolocation-!cn@cn:
+#    type: http
+#    behavior: domain
+#    path: "./rule_provider/geolocation-!cn@cn.yaml"
+#    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-!cn%40cn.yaml
+#    interval: 259200
+#  geolocation-!cn:
+#    type: http
+#    behavior: domain
+#    path: "./rule_provider/geolocation-!cn.yaml"
+#    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-!cn-all.yaml
+#    interval: 259200
 
 tun:
   enable: true  #如果需要启用 TUN 模式，请设置为 true
