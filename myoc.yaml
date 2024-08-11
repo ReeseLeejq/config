@@ -168,7 +168,7 @@ rule-providers:
     interval: 604800
   proxy:
     type: http
-    behavior: classical
+    behavior: domain
     path: "./rule_provider/proxyrule.yaml"
     url: https://raw.githubusercontent.com/DustinWin/ruleset_geodata/clash-ruleset/proxy.yaml
     interval: 259200    
