@@ -4,10 +4,9 @@ IP-CIDR,8.8.8.8/32,no-resolve
 IP-CIDR,1.1.1.1/32,no-resolve
 #airplane
 DOMAIN-SUFFIX,sesexiaozhan.com
-DOMAIN-SUFFIX,bajie.dog
+DOMAIN-SUFFIX,bajie.xyz
 DOMAIN-SUFFIX,sanfen.me
 DOMAIN-SUFFIX,sanfen.cc
-DOMAIN-SUFFIX,api.sanfen013.xyz
 #other
 DOMAIN,dns.iui.im
 DOMAIN-SUFFIX,zloemu.net
