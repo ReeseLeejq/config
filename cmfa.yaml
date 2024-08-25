@@ -98,12 +98,10 @@ dns:
   # 在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
   fake-ip-filter:
     # === ALL ===
-    - '*'
     - '+.*'
 
   proxy-server-nameserver:
      - https://doh.apad.pro/dns-query
-     - https://1.15.50.48/verse
 
   nameserver-policy:
     "geosite:cn,private":
@@ -118,7 +116,6 @@ dns:
   nameserver:
     #- https://dns.cooluc.com/dns-query
     - https://doh.apad.pro/dns-query
-    - https://1.15.50.48/verse
 
   #fallback:
     #- https://dns.google/dns-query
