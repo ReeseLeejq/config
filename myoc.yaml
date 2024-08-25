@@ -99,12 +99,10 @@ dns:
 
   proxy-server-nameserver:
      - https://doh.apad.pro/dns-query
-     - https://1.15.50.48/verse
      
   nameserver:
     #- https://dns.cooluc.com/dns-query
     - https://doh.apad.pro/dns-query
-    - https://1.15.50.48/verse
 
   #fallback:
     #- https://dns.google/dns-query
