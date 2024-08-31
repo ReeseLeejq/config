@@ -109,6 +109,20 @@ dns:
     #- https://1.1.1.1/dns-query
     #- https://public.dns.iij.jp/dns-query
 
+rule-providers:
+  geolocation-cn@!cn:
+    type: http
+    behavior: domain
+    path: "./rule_provider/geolocation-cn@!cn.yaml"
+    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-cn%40!cn.yaml
+    interval: 604800
+  geolocation-!cn@cn:
+    type: http
+    behavior: domain
+    path: "./rule_provider/geolocation-!cn@cn.yaml"
+    url: https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-!cn%40cn.yaml
+    interval: 604800
+
 tun:
   enable: true  #如果需要启用 TUN 模式，请设置为 true
   stack: mixed # system 或 gvisor
