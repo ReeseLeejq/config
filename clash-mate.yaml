@@ -89,10 +89,11 @@ dns:
   fake-ip-range: 198.18.0.1/16 # Fake IP 地址池 (CIDR 形式)
   # use-hosts: true # 查询 hosts 并返回 IP 记录
 
-  # 在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
+  #fake-ip-filter-mode:whitelist
   #fake-ip-filter:
-    # === ALL ===
-    #- '+.*'
+    #- geosite:geolocation-!cn
+    #- rule-set:geolocation-cn@!cn
+    #- geosite:category-games@!cn
 
   #nameserver-policy:
   #  'geosite:cn': https://dns.alidns.com/dns-query
@@ -110,6 +111,30 @@ dns:
     #- https://public.dns.iij.jp/dns-query
 
 rule-providers:
+  UnBanlist:
+    type: txt
+    behavior: domain
+    path: "./rule_provider/UnBan.yaml"
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list
+    interval: 604800
+  Insidelist:
+    type: txt
+    behavior: domain
+    path: "./rule_provider/Inside.yaml"
+    url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Inside.list
+    interval: 604800
+  Outsidelist:
+    type: txt
+    behavior: domain
+    path: "./rule_provider/Outside.yaml"
+    url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Outside.list
+    interval: 604800
+  rule-provider:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule-provider.yaml"
+    url: https://gcore.jsdelivr.net/gh/lwd-temp/anti-ip-attribution@main/generated/rule-provider.yaml
+    interval: 604800
   geolocation-cn@!cn:
     type: http
     behavior: domain
@@ -133,6 +158,12 @@ rule-providers:
     behavior: classical
     path: "./rule_provider/Microsoft_No_Resolve.yaml"
     url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft_No_Resolve.yaml
+    interval: 604800
+  Copilot:
+    type: http
+    behavior: classical
+    path: "./rule_provider/Copilot_No_Resolve.yaml"
+    url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Copilot/Copilot_No_Resolve.yaml
     interval: 604800
 
 tun:
