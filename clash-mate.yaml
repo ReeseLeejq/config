@@ -114,19 +114,19 @@ rule-providers:
   UnBanlist:
     type: text
     behavior: classical
-    path: "./rule_provider/UnBan.yaml"
+    path: "./rule_provider/UnBan.list"
     url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list
     interval: 604800
   Insidelist:
     type: text
     behavior: classical
-    path: "./rule_provider/Inside.yaml"
+    path: "./rule_provider/Inside.list"
     url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Inside.list
     interval: 604800
   Outsidelist:
     type: text
     behavior: classical
-    path: "./rule_provider/Outside.yaml"
+    path: "./rule_provider/Outside.list"
     url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Outside.list
     interval: 604800
   rule-provider:
