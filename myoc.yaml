@@ -118,13 +118,13 @@ rule-providers:
     interval: 604800
   Insidelist:
     type: text
-    behavior: domain
+    behavior: classical
     path: "./rule_provider/Inside.yaml"
     url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Inside.list
     interval: 604800
   Outsidelist:
     type: text
-    behavior: domain
+    behavior: classical
     path: "./rule_provider/Outside.yaml"
     url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Outside.list
     interval: 604800
