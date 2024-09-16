@@ -96,10 +96,12 @@ dns:
   # use-hosts: true # 查询 hosts 并返回 IP 记录
 
   # 在以下列表的域名将不会被解析为 fake ip，这些域名相关的解析请求将会返回它们真实的 IP 地址
+  fake-ip-filter-mode:blacklist
   fake-ip-filter:
-    # === ALL ===
-    - '+.*'
-
+    - geosite:cn
+    - geosite:private
+    - geosite:category-games@cn
+    
   proxy-server-nameserver:
      - https://doh.apad.pro/dns-query
 
