@@ -112,7 +112,7 @@ dns:
 rule-providers:
   UnBanlist:
     type: text
-    behavior: domain
+    behavior: classical
     path: "./rule_provider/UnBan.yaml"
     url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list
     interval: 604800
