@@ -112,19 +112,19 @@ dns:
 
 rule-providers:
   UnBanlist:
-    type: txt
+    type: text
     behavior: domain
     path: "./rule_provider/UnBan.yaml"
     url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list
     interval: 604800
   Insidelist:
-    type: txt
+    type: text
     behavior: domain
     path: "./rule_provider/Inside.yaml"
     url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Inside.list
     interval: 604800
   Outsidelist:
-    type: txt
+    type: text
     behavior: domain
     path: "./rule_provider/Outside.yaml"
     url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Outside.list
