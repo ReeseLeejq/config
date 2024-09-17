@@ -125,6 +125,33 @@ dns:
     #- https://public.dns.iij.jp/dns-query
 
 rule-providers:
+  UnBanlist:
+    type: http
+    format: text
+    behavior: classical
+    path: "./rule_provider/UnBan.list"
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list
+    interval: 604800
+  Insidelist:
+    type: http
+    behavior: classical
+    path: "./rule_provider/Inside.list"
+    url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Inside.list
+    interval: 604800
+  Outsidelist:
+    type: http
+    format: text
+    behavior: classical
+    path: "./rule_provider/Outside.list"
+    url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Outside.list
+    interval: 604800
+  rule-provider:
+    type: http
+    format: text
+    behavior: classical
+    path: "./rule_provider/rule-provider.yaml"
+    url: https://gcore.jsdelivr.net/gh/lwd-temp/anti-ip-attribution@main/generated/rule-provider.yaml
+    interval: 604800
   AdvertisingLite:
     type: http
     behavior: classical
@@ -160,6 +187,12 @@ rule-providers:
     behavior: classical
     path: "./rule_provider/Microsoft_No_Resolve.yaml"
     url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft_No_Resolve.yaml
+    interval: 604800
+  Copilot:
+    type: http
+    behavior: classical
+    path: "./rule_provider/Copilot_No_Resolve.yaml"
+    url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Copilot/Copilot_No_Resolve.yaml
     interval: 604800
 
 tun:
