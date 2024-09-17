@@ -120,6 +120,7 @@ rule-providers:
     interval: 604800
   Insidelist:
     type: http
+    format: text
     behavior: classical
     path: "./rule_provider/Inside.list"
     url: https://raw.githubusercontent.com/ReeseLeejq/config/main/Inside.list
@@ -133,7 +134,6 @@ rule-providers:
     interval: 604800
   rule-provider:
     type: http
-    format: text
     behavior: classical
     path: "./rule_provider/rule-provider.yaml"
     url: https://gcore.jsdelivr.net/gh/lwd-temp/anti-ip-attribution@main/generated/rule-provider.yaml
