@@ -1,0 +1,358 @@
+# 锚点 - 节点订阅的参数 [每24小时更新一次订阅节点，每 900 秒一次健康检查]
+NodeParam: &NodeParam {type: http, interval: 86400, health-check: {enable: true, url: 'https://www.gstatic.com/generate_204', interval: 900}}
+
+  机场名称1:
+    url: '机场1的订阅URL'
+    <<: *NodeParam
+    path: './proxy_providers/机场名称1.yaml'
+    override:
+      ip-version: ipv4-prefer #优先使用 IPv4，对于 TCP 会进行双栈解析，并发链接但是优先使用 IPv4 链接，UDP 则为双栈解析，获取结果中的第一个 IPv4
+      additional-prefix: "[机场名称1] " # 为订阅节点添加机场名称前缀
+  机场名称2:
+    url: '机场2的订阅URL'
+    <<: *NodeParam
+    path: './proxy_providers/机场名称2.yaml'
+    override:
+      ip-version: ipv4-prefer #优先使用 IPv4，对于 TCP 会进行双栈解析，并发链接但是优先使用 IPv4 链接，UDP 则为双栈解析，获取结果中的第一个 IPv4
+      additional-prefix: "[机场名称2] " # 为订阅节点添加机场名称前缀
+
+port: 7890
+socks-port: 7891
+mixed-port: 7892 #混合端口是一个特殊的端口，它同时支持 HTTP(S) 和 SOCKS5 协议。您可以使用任何支持 HTTP 或 SOCKS 代理的程序连接到这个端口
+redir-port: 7893 #redirect 透明代理端口，仅能代理 TCP 流量  redirect 端口仅限 Linux(Android) 以及 macOS 适用
+tproxy-port: 7894 #tproxy 透明代理端口，可代理 TCP 与 UDP 流量  tproxy 端口仅限 linux(Android) 适用
+
+mode: rule
+log-level: warning #info
+mixed-port: 7890
+ipv6: true
+allow-lan: true
+bind-address: "*"
+unified-delay: true
+tcp-concurrent: true
+find-process-mode: strict # strict 默认，由 Clash 判断是否开启；off 不匹配进程，推荐在路由器上使用此模式
+global-client-fingerprint: chrome
+external-controller: 127.0.0.1:9090
+external-ui: ui
+#external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
+
+geodata-mode: true
+geox-url:
+  geoip: "https://ghp.ci/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat"
+  geosite: "https://ghp.ci/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+  mmdb: "https://ghp.ci/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb"
+#  asn: "https://mirror.ghproxy.com/https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+geodata-loader: standard
+geo-auto-update: true
+geo-update-interval: 72
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  override-destination: false
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: false
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+  force-domain:
+    - +.v2ex.com
+
+tun:
+  enable: true
+  stack: mixed
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+
+dns:
+  enable: true
+  prefer-h3: true
+  ipv6: true
+  respect-rules: true # dns 连接遵守路由规则，需配置 proxy-server-nameserver
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-filter-mode: whitelist #可选 blacklist/whitelist，默认blacklist``，whitelist 即只有匹配成功才返回 fake-ip
+  fake-ip-filter:
+    - geosite:geolocation-!cn
+    - rule-set:geolocation-cn@!cn
+    - geosite:category-games@!cn
+  default-nameserver:
+    - https://223.5.5.5:443/dns-query
+    - tls://120.53.53.53:853
+  nameserver:
+    - https://120.53.53.53/dns-query
+    - https://223.5.5.5/dns-query
+  proxy-server-nameserver:
+    - https://120.53.53.53/dns-query
+    - https://223.5.5.5/dns-query
+  nameserver-policy:
+    "geosite:cn,private":
+      - https://120.53.53.53/dns-query
+      - https://223.5.5.5/dns-query
+    "geosite:geolocation-!cn":
+#      - 'https://8.8.8.8/dns-query#ecs=1.1.1.1/24' #指定 dns 查询的 subnet 地址，仅支持 doh
+#      - 'https://8.8.8.8/dns-query#ecs=1.1.1.1/24&ecs-override=true' 强制覆盖 dns 查询的 subnet 地址，仅支持 doh
+      - "https://dns.cloudflare.com/dns-query"
+      - "https://dns.google/dns-query"
+
+# 锚点 - 节点筛选组
+FilterHK: &FilterHK '^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+FilterTW: &FilterTW '^(?=.*((?i)🇹🇼|台湾|(\b(TW|Tai|Taiwan)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+FilterJP: &FilterJP '^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|Japan)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+FilterKR: &FilterKR '^(?=.*((?i)🇰🇷|韩国|韓|首尔|(\b(KR|Korea)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+FilterSG: &FilterSG '^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|Singapore)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+FilterUS: &FilterUS '^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|United States)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+FilterEU: &FilterEU '^(?=.*((?i)🇬🇧|英国|伦敦|🇫🇷|法国|🇩🇪|德国|🇸🇪|瑞典|(\b(UK|United Kingdom|FR|France|DE|Germany)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+FilterOTHER: &FilterOTHER '^(?=.*((?i)🇮🇳|印度|孟买|🇦🇪|迪拜|🇧🇷|巴西|🇦🇺|悉尼|澳大利亚|澳洲))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+FilterGame: &FilterGame '^(?=.*((?i)游戏|🎮|(\b(GAME)\b)))(?!.*((?i)回国|校园)).*$'
+FilterAll: &FilterAll '^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|账号|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)\b|(\d{4}-\d{2}-\d{2}|\d+G)))).*$'
+
+# 策略组参数锚点
+# 锚点 - 时延优选参数 [每 300 秒一次惰性健康检查，容差 50ms，时延超过 3 秒判定为失败，失败 3 次则自动触发健康检查]
+UrlTest: &UrlTest {type: url-test, interval: 300, tolerance: 50, lazy: true, url: 'https://www.gstatic.com/generate_204', disable-udp: false, timeout: 3000, max-failed-times: 3, hidden: true, include-all-providers: true}
+# 锚点 - 故障转移参数 [每 300 秒一次惰性健康检查，时延超过 3 秒判定为失败，失败 3 次则自动触发健康检查]
+FallBack: &FallBack {type: fallback, interval: 300, lazy: true, url: 'https://www.gstatic.com/generate_204', disable-udp: false, timeout: 3000, max-failed-times: 3, hidden: true, include-all-providers: true}
+# 锚点 - 负载均衡参数 [每 300 秒一次惰性健康检查，时延超过 3 秒判定为失败，失败 3 次则自动触发健康检查]
+LoadBalance: &LoadBalance {type: load-balance, interval: 300, lazy: true, url: 'https://www.gstatic.com/generate_204', disable-udp: false, strategy: consistent-hashing, timeout: 3000, max-failed-times: 3, hidden: true, include-all-providers: true}
+# 锚点 - 时延优选无隐藏参数 [每 300 秒一次惰性健康检查，容差 50ms，时延超过 3 秒判定为失败，失败 3 次则自动触发健康检查]
+UrlTest2: &UrlTest2 {type: url-test, interval: 300, tolerance: 50, lazy: true, url: 'https://www.gstatic.com/generate_204', disable-udp: false, timeout: 3000, max-failed-times: 3, include-all-providers: true}
+
+proxy-groups:
+
+  - name: 🚀 节点选择
+    type: select
+    proxies: [✈️ 手动切换, 🛩️ 手动选择备用, 👌 自选,  香港策略, 台湾策略, 日本策略, 韩国策略, 新国策略, 美国策略, 欧洲策略, 其他地区策略]
+
+  - name: 📢 机场信息
+    type: select
+    include-all-providers: true
+    filter: "(?i)机场|订阅|官网|重置|剩余|流量|过期|本站|用户|续费|邮箱|更新|邀请|返利|到期"
+
+  - name: ✈️ 手动切换
+    type: select
+    include-all-providers: true
+    proxies:  [DIRECT]
+    filter: *FilterAll
+
+  - name: 🛩️ 手动选择备用
+    type: select
+    include-all-providers: true
+    proxies:  [DIRECT]
+    filter: *FilterAll
+
+  - name: 🛸 IP归属地伪装
+    type: select
+    proxies: [🎯 全球直连, ✈️ 手动切换, 🛩️ 手动选择备用]
+
+  - name: 📲 电报消息
+    type: select
+    proxies: [🚀 节点选择, ✈️ 手动切换, 🛩️ 手动选择备用, 香港策略, 台湾策略, 日本策略, 韩国策略, 新国策略, 美国策略, 欧洲策略, 其他地区策略]
+
+  - name: 📺 B站港澳台
+    type: select
+    proxies: [🎯 全球直连, ✈️ 手动切换, 🛩️ 手动选择备用]
+
+  - name: 🤖 Copilot
+    type: select
+    proxies: [DIRECT, 🚀 节点选择, ✈️ 手动切换, 🛩️ 手动选择备用, 香港策略, 台湾策略, 日本策略, 韩国策略, 新国策略, 美国策略, 欧洲策略, 其他地区策略]
+
+  - name: Ⓜ️ 微软服务
+    type: select
+    proxies: [DIRECT, 🚀 节点选择, ✈️ 手动切换, 🛩️ 手动选择备用, 香港策略, 台湾策略, 日本策略, 韩国策略, 新国策略, 美国策略, 欧洲策略, 其他地区策略]
+
+  - name: Ⓜ️ 微软国内
+    type: select
+    proxies: [DIRECT, Ⓜ️ 微软服务, ✈️ 手动切换]
+
+  - name: 🎮 游戏平台
+    type: select
+    proxies: [DIRECT,🚀 节点选择, ✈️ 手动切换, 🛩️ 手动选择备用]
+
+  - name: 🎯 全球直连
+    type: select
+    proxies: [DIRECT, 🚀 节点选择, ✈️ 手动切换, 🛩️ 手动选择备用]
+
+  - name: 🛑 广告拦截
+    type: select
+    proxies:  [REJECT, DIRECT, 🚀 节点选择]
+
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:  [DIRECT, 🚀 节点选择, 香港策略, 台湾策略, 日本策略, 韩国策略, 新国策略, 美国策略, 欧洲策略, 其他地区策略]
+
+  - name: 👌 自选
+    <<: *UrlTest2
+    include-all-providers: true
+    filter: "(?i)^(?!.*(?:x1.5|x2|x3|1.5x|2x|3x|测试|机场|订阅|官网|重置|剩余|流量|过期|本站|用户|续费|邮箱|更新|邀请|返利|到期)).*(韩国|日本|新加坡|狮城|KR|JP|SG|Japan|Singapore|Korea)"
+
+  #分隔,下面是地区分组
+  - {name: 香港策略, type: select, proxies: [⏱香港时延优选策略组, 🚥香港故障转移策略组, 🎛香港负载均衡策略组]}
+  - {name: 台湾策略, type: select, proxies: [⏱台湾时延优选策略组, 🚥台湾故障转移策略组, 🎛台湾负载均衡策略组]}
+  - {name: 日本策略, type: select, proxies: [⏱日本时延优选策略组, 🚥日本故障转移策略组, 🎛日本负载均衡策略组]}
+  - {name: 韩国策略, type: select, proxies: [⏱韩国时延优选策略组, 🚥韩国故障转移策略组, 🎛韩国负载均衡策略组]}
+  - {name: 新国策略, type: select, proxies: [⏱新国时延优选策略组, 🚥新国故障转移策略组, 🎛新国负载均衡策略组]}
+  - {name: 美国策略, type: select, proxies: [⏱美国时延优选策略组, 🚥美国故障转移策略组, 🎛美国负载均衡策略组]}
+  - {name: 欧洲策略, type: select, proxies: [⏱欧洲时延优选策略组, 🚥欧洲故障转移策略组, 🎛欧洲负载均衡策略组]}
+  - {name: 其他地区策略, type: select, proxies: [⏱其他地区时延优选策略组, 🚥其他地区故障转移策略组]}
+#  - {name: 其他地区策略, type: select, proxies: [⏱其他地区时延优选策略组, 🚥其他地区故障转移策略组, 🎛其他地区负载均衡策略组]}
+
+# 时延优选策略组
+  - {name: ⏱香港时延优选策略组, <<: *UrlTest, filter: *FilterHK}
+  - {name: ⏱台湾时延优选策略组, <<: *UrlTest, filter: *FilterTW}
+  - {name: ⏱日本时延优选策略组, <<: *UrlTest, filter: *FilterJP}
+  - {name: ⏱韩国时延优选策略组, <<: *UrlTest, filter: *FilterKR}
+  - {name: ⏱新国时延优选策略组, <<: *UrlTest, filter: *FilterSG}
+  - {name: ⏱美国时延优选策略组, <<: *UrlTest, filter: *FilterUS}
+  - {name: ⏱欧洲时延优选策略组, <<: *UrlTest, filter: *FilterEU}
+  - {name: ⏱其他地区时延优选策略组, <<: *UrlTest, filter: *FilterOTHER}
+
+# 故障转移策略组
+  - {name: 🚥香港故障转移策略组, <<: *FallBack, filter: *FilterHK}
+  - {name: 🚥台湾故障转移策略组, <<: *FallBack, filter: *FilterTW}
+  - {name: 🚥日本故障转移策略组, <<: *FallBack, filter: *FilterJP}
+  - {name: 🚥韩国故障转移策略组, <<: *FallBack, filter: *FilterKR}
+  - {name: 🚥新国故障转移策略组, <<: *FallBack, filter: *FilterSG}
+  - {name: 🚥美国故障转移策略组, <<: *FallBack, filter: *FilterUS}
+  - {name: 🚥欧洲故障转移策略组, <<: *FallBack, filter: *FilterEU}
+  - {name: 🚥其他地区故障转移策略组, <<: *FallBack, filter: *FilterOTHER}
+
+# 负载均衡策略组
+  - {name: 🎛香港负载均衡策略组, <<: *LoadBalance, filter: *FilterHK}
+  - {name: 🎛台湾负载均衡策略组, <<: *LoadBalance, filter: *FilterTW}
+  - {name: 🎛日本负载均衡策略组, <<: *LoadBalance, filter: *FilterJP}
+  - {name: 🎛韩国负载均衡策略组, <<: *LoadBalance, filter: *FilterKR}
+  - {name: 🎛新国负载均衡策略组, <<: *LoadBalance, filter: *FilterSG}
+  - {name: 🎛美国负载均衡策略组, <<: *LoadBalance, filter: *FilterUS}
+  - {name: 🎛欧洲负载均衡策略组, <<: *LoadBalance, filter: *FilterEU}
+#  - {name: 🎛其他地区负载均衡策略组, <<: *LoadBalance, filter: *FilterOTHER}
+
+rule-providers:
+  UnBanlist:
+    type: http
+    format: text
+    behavior: classical
+    path: "./rule_provider/UnBan.list"
+    url: https://ghp.ci/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list
+    interval: 604800
+  Insidelist:
+    type: http
+    format: text
+    behavior: classical
+    path: "./rule_provider/Inside.list"
+    url: https://ghp.ci/https://raw.githubusercontent.com/ReeseLeejq/config/main/Inside.list
+    interval: 604800
+  Outsidelist:
+    type: http
+    format: text
+    behavior: classical
+    path: "./rule_provider/Outside.list"
+    url: https://ghp.ci/https://raw.githubusercontent.com/ReeseLeejq/config/main/Outside.list
+    interval: 604800
+  rule-provider:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule-provider.yaml"
+    url: https://gcore.jsdelivr.net/gh/lwd-temp/anti-ip-attribution@main/generated/rule-provider.yaml
+    interval: 604800
+  geolocation-cn@!cn:
+    type: http
+    behavior: domain
+    path: "./rule_provider/geolocation-cn@!cn.yaml"
+    url: https://ghp.ci/https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-cn%40!cn.yaml
+    interval: 604800
+  geolocation-!cn@cn:
+    type: http
+    behavior: domain
+    path: "./rule_provider/geolocation-!cn@cn.yaml"
+    url: https://ghp.ci/https://raw.githubusercontent.com/Yuu518/Yuu-rules/rule-set/mihomo/geosite/geolocation-!cn%40cn.yaml
+    interval: 604800
+  GlobalMedia:
+    type: http
+    behavior: classical
+    path: "./rule_provider/GlobalMedia_Classical_No_Resolve.yaml"
+    url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalMedia/GlobalMedia_Classical_No_Resolve.yaml
+    interval: 604800
+  Microsoft:
+    type: http
+    behavior: classical
+    path: "./rule_provider/Microsoft_No_Resolve.yaml"
+    url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft_No_Resolve.yaml
+    interval: 604800
+  GameKL:
+    type: http
+    behavior: classical
+    path: "./rule_provider/GameKL.yaml"
+    url: https://ghp.ci/https://raw.githubusercontent.com/luestr/ProxyResource/main/Tool/Clash/Rule/Game.yaml
+    interval: 604800
+  BilibiliHMT:
+    type: http
+    format: text
+    behavior: classical
+    path: "./rule_provider/BilibiliHMT.list"
+    url: https://gcore.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/BilibiliHMT.list
+    interval: 604800
+  Copilot:
+    type: http
+    behavior: classical
+    path: "./rule_provider/Copilot_No_Resolve.yaml"
+    url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Copilot/Copilot_No_Resolve.yaml
+    interval: 604800
+  AdvertisingLite:
+    type: http
+    behavior: classical
+    path: "./rule_provider/AdvertisingLite_Classical_No_Resolve.yaml"
+    url: https://gcore.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AdvertisingLite/AdvertisingLite_Classical_No_Resolve.yaml
+    interval: 259200
+  AWAvenue-Ads-Rule:
+    type: http
+    behavior: domain
+    path: "./rule_provider/AWAvenue-Ads-Rule-Clash.yaml"
+    url: https://gcore.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.yaml
+    interval: 259200
+
+rules:
+  - AND,((NETWORK,UDP),(GEOSITE,geolocation-!cn),(DST-PORT,443)),REJECT
+  - GEOIP,private,🎯 全球直连,no-resolve
+  - RULE-SET,UnBanlist,🎯 全球直连
+  - RULE-SET,Insidelist,🎯 全球直连
+  - RULE-SET,Outsidelist,🚀 节点选择
+  - RULE-SET,rule-provider,🛸 IP归属地伪装
+  - RULE-SET,AdvertisingLite,🛑 广告拦截
+  - RULE-SET,AWAvenue-Ads-Rule,🛑 广告拦截
+  - GEOSITE,category-ads-all,🛑 广告拦截
+  - RULE-SET,BilibiliHMT,📺 B站港澳台
+  - GEOSITE,biliintl,📺 B站港澳台
+  - GEOIP,telegram,📲 电报消息,no-resolve
+  - GEOSITE,telegram,📲 电报消息
+  - RULE-SET,GlobalMedia,🚀 节点选择
+  - RULE-SET,Copilot,🤖 Copilot
+  - GEOSITE,openai,🤖 Copilot
+  - RULE-SET,GameKL,🎮 游戏平台
+  - GEOSITE,category-games@!cn,🎮 游戏平台
+  - GEOSITE,private,🎯 全球直连
+  - GEOSITE,google-cn,🎯 全球直连
+#  - GEOSITE,onedrive,Ⓜ️ 微软云盘
+  - GEOSITE,microsoft@cn,Ⓜ️ 微软国内
+  - RULE-SET,Microsoft,Ⓜ️ 微软服务
+  - RULE-SET,geolocation-cn@!cn,🚀 节点选择
+#  - GEOSITE,geolocation-cn,🎯 全球直连
+  - RULE-SET,geolocation-!cn@cn,🎯 全球直连
+  - GEOSITE,geolocation-!cn,🚀 节点选择
+  - GEOSITE,CN,🎯 全球直连
+  - GEOIP,CN,🎯 全球直连,no-resolve
+  - MATCH,🐟 漏网之鱼
