@@ -7,6 +7,9 @@ DOMAIN-SUFFIX,sesexiaozhan.com
 DOMAIN-KEYWORD,bajie
 DOMAIN-KEYWORD,sanfen0
 DOMAIN-SUFFIX,jsjc.cfd
+#google商店
+DOMAIN-SUFFIX,services.googleapis.cn
+DOMAIN-SUFFIX,xn--ngstr-lra8j.com
 #other
 DOMAIN,dns.iui.im
 DOMAIN-SUFFIX,zloemu.net
