@@ -5,9 +5,10 @@ IP-CIDR,1.0.0.1/32,no-resolve
 IP-CIDR,1.1.1.1/32,no-resolve
 #airplane
 DOMAIN-SUFFIX,sesexiaozhan.com
-DOMAIN-KEYWORD,bajie
-DOMAIN-KEYWORD,sanfen0
+#DOMAIN-KEYWORD,bajie
+#DOMAIN-KEYWORD,sanfen0
 DOMAIN-SUFFIX,jsjc.cfd
+DOMAIN-SUFFIX,ibcn.space
 #google商店
 DOMAIN-SUFFIX,services.googleapis.cn
 DOMAIN-SUFFIX,xn--ngstr-lra8j.com
