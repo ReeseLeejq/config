@@ -3,8 +3,9 @@ DOMAIN-SUFFIX,alidns.com
 DOMAIN-SUFFIX,dns.pub
 DOMAIN-SUFFIX,doh.pub
 DOMAIN-SUFFIX,dot.pub
-DOMAIN,doh.apad.pro
+DOMAIN-SUFFIX,apad.pro
 DOMAIN-SUFFIX,xns.one
+DOMAIN-SUFFIX,novaxns.one
 #pt
 DOMAIN-SUFFIX,m-team.cc
 #联合早报
